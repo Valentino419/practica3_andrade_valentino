@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+
+        <label for="usuario">Usuario:</label>
+        <input type="text" id="usuario" name="usuario" required>
+        <br>
+        <label for="contrasena">Contraseña:</label>
+        <input type="password" id="contrasena" name="contrasena" required>
+
+        <button id="loginbtn" onclick="login()">Ingresar</button>
+
+    </div>
+
+</body>
+<script>
+
+    function login() {
+        const usuario = document.getElementById('usuario');
+        const contrasena = document.getElementById('contrasena');
+        fetch('http://localhost/practica_profecionalizante_3/ejercicio_1/validacion.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                usuario: usuario.value, contrasena: contrasena.value
+            })// envia el array como objeto
+
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    alert("login exitoso")
+                    location.href = "LoginExitoso.html"
+                }
+                else {
+                    alert("usuario o contraseñas invalidos")
+                }
+
+
+
+            });
+
+        //alert(usuario.value+' '+contrasena.value)
+
+    }
+
+</script>
+
+</html>
